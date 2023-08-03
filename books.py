@@ -22,7 +22,6 @@ def main():
     books = get_books_from_all_pages('http://books.toscrape.com/catalogue/page-{}.html',start_page=int(args.start),end_page=int(args.end),step=int(args.step))
     save_to_csv(books)
 
-    df = pd.read_csv('books.csv')
     print('Data have been saved in books.csv')
 
     if args.print_books:
