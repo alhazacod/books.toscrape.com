@@ -1,10 +1,14 @@
+from pandas import read_csv
 from books_scrapper import get_books_from_all_pages, print_books
 import sys
 import argparse
+from list_to_csv import save_to_csv
+
+import pandas as pd
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Programa para obtener todos los libros de la pagina books.toscrape.com')
+    parser = argparse.ArgumentParser(description='Programa para obtener todos los libros de la pagina books.toscrape.com y guardarlos como un csv')
 
     # Argumentos
     parser.add_argument('start', nargs='?', default=1, help = 'Starting page. If no argument starting page is 1.')
@@ -16,6 +20,11 @@ def main():
 
     args = parser.parse_args()
     books = get_books_from_all_pages('http://books.toscrape.com/catalogue/page-{}.html',start_page=int(args.start),end_page=int(args.end),step=int(args.step))
+    save_to_csv(books)
+
+    df = pd.read_csv('books.csv')
+    print('Data have been saved in books.csv')
+
     if args.print_books:
         print_books(books)
 
